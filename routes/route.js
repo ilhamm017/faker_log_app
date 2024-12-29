@@ -1,34 +1,34 @@
 const express = require('express');
-const app = express();
+const router = express.Router();
 const servie = require('../service/logApp')
 
-app.get('/custom', (req, res) => {
+router.get('/custom', (req, res) => {
   const logMessage = servie.customGenerateLog();
   res.send(logMessage + '\n');
 });
 
-app.get('/syslog', (req, res) => {
+router.get('/syslog', (req, res) => {
   const logMessage = servie.syslogGenerateLog();
   res.send(logMessage + '\n');
 
 })
 
-app.get('/json', (req, res) => {
+router.get('/json', (req, res) => {
   const logMessage = servie.jsonGenerateLog();
-  res.send(logMessage + '\n');
+  res.json(logMessage);
 
 })
 
-app.get('/snort', (req, res) => {
+router.get('/snort', (req, res) => {
   const logMessage = servie.snort_fullGeneratorLog();
   res.send(logMessage + '\n');
 
 })
 
+module.exports = router;
 
 
-
-// app.get('/stream', (req, res) => {
+// router.get('/stream', (req, res) => {
 //   res.writeHead(200, {
 //       'Content-Type': 'text/event-stream', // Penting: Gunakan event-stream
 //       'Cache-Control': 'no-cache',

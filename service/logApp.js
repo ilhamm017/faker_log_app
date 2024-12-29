@@ -20,14 +20,14 @@ function customGenerateLog() {
         const timestamp = moment(); // Format timestamp ISO 8601
         const sourceIP = faker.internet.ip();
         const username = faker.internet.username();
-        const applicationName = "MyCustomApp"; // Nama aplikasi kustom
+        const applicationName = "customApp"; // Nama aplikasi kustom
         const eventId = Math.floor(Math.random() * 10000); // ID event acak
         const message = faker.lorem.sentence();
         const logFilePath = path.join(__dirname, 'customApp.log');
 
         // Format kustom
         const logformat = `[${timestamp}] (${applicationName}:${eventId}) <${sourceIP}> ${username} - ${logType} - ${message}`;
-        log(message, logFilePath);
+        log(logformat, logFilePath);
         return logformat;
 
     } catch (error) {
@@ -40,17 +40,19 @@ function syslogGenerateLog() {
         const fcility = 16; // local0
         const severity = 6; // Informational
         const timestamp = moment(); // Format timestamp ISO 8601
-        const sourceIP = faker.internet.ip();
+        const sourceIP = faker.internet.ipv4();
         const username = faker.internet.username();
-        const applicationName = "MyCustomApp"; // Nama aplikasi kustom
+        const applicationName = "syslogApp"; // Nama aplikasi kustom
         const eventId = Math.floor(Math.random() * 10000); // ID event acak
         const message = faker.lorem.sentence();
         const logFilePath = path.join(__dirname, 'syslogApp.log');
-        
+        const logTypes = ['AUTH', 'SQL', 'NETWORK', 'SYS']; // Jenis log yang tidak umum
+        const logType = logTypes[Math.floor(Math.random() * logTypes.length)];
+
         // Format syslog
         const pri = fcility * 8 + severity;
-        const logFormat = `<${pri}>${timestamp} ${sourceIP} ${username} ${applicationName} ${eventId} - ${message}`
-        log(message, logFilePath)
+        const logFormat = `<${pri}>${timestamp} ${applicationName}[${eventId}] ${sourceIP} ${username} ${logType} - ${message}`
+        log(logFormat, logFilePath)
         return logFormat;
 
     } catch (error) {
@@ -63,7 +65,7 @@ function jsonGenerateLog() {
         const timestamp = moment(); // Format timestamp ISO 8601
         const sourceIP = faker.internet.ip();
         const username = faker.internet.username();
-        const applicationName = "MyJsonApp"; // Nama aplikasi kustom
+        const applicationName = "jsonApp"; // Nama aplikasi kustom
         const eventId = Math.floor(Math.random() * 10000); // ID event acak
         const message = faker.lorem.sentence();
         const logFilePath = path.join(__dirname, 'jsonApp.log')
@@ -98,7 +100,7 @@ function snort_fullGeneratorLog() {
         const timestamp = moment().format('MM/DD-HH:mm:ss.SSS')
         const sourceIP = faker.internet.ip();
         const username = faker.internet.username();
-        const applicationName = "MySnortApp"; // Nama aplikasi kustom
+        const applicationName = "snortApp"; // Nama aplikasi kustom
         const eventId = Math.floor(Math.random() * 10000); // ID event acak
         const message = faker.lorem.sentence();
         const protocol = faker.internet.protocol();
@@ -108,8 +110,8 @@ function snort_fullGeneratorLog() {
         const logFilePath = path.join(__dirname, 'snortApp.log')
 
         // Format snort
-        const logFormat = `[**] [${timestamp}] [**] [Username: ${username}] [ApplicationName: ${applicationName}] {${protocol}} ${sourceIP}:${sourcePort} -> ${destinationIP}:${destinationPort}`
-        log(message, logFilePath)
+        const logFormat = `[**] [1:1000001:0] [**] [Username: ${username}] [ApplicationName: ${applicationName}] {${protocol}} ${sourceIP}:${sourcePort} -> ${destinationIP}:${destinationPort}`
+        log(logFormat, logFilePath)
         return logFormat
 
     } catch (error) {
