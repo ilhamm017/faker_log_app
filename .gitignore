@@ -1,1 +1,6 @@
 node_modules
+service/customApp.log
+service/jsonApp.log
+service/snortApp.log
+service/syslogApp.log
+service/multilineOtto.log
