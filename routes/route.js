@@ -11,19 +11,25 @@ router.get('/syslog', (req, res) => {
   const logMessage = servie.syslogGenerateLog();
   res.send(logMessage + '\n');
 
-})
+});
 
 router.get('/json', (req, res) => {
   const logMessage = servie.jsonGenerateLog();
   res.json(logMessage);
 
-})
+});
 
 router.get('/snort', (req, res) => {
   const logMessage = servie.snort_fullGeneratorLog();
   res.send(logMessage + '\n');
 
-})
+});
+
+router.get('/multiline-otto', (req, res) => {
+  const logMessage = servie.multiline_otto();
+  res.send(logMessage + '\n')
+});
+  
 
 module.exports = router;
 
