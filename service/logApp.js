@@ -121,54 +121,45 @@ function snort_fullGeneratorLog() {
 }
 
 function multiline_otto() {
-try {
-    function generateLogLine(timestamp) {
-        const uuid = faker.internet.ipv6;
-        const data = faker.git.commitSha(); // Generate random data
-        const key = `BP-REPORTING-RETRY-SP${faker.helpers.rangeToNumber({min: 1000000000000000000, max: 9999999999999999999})}~1`;
-        const errorDesc = 'Post "http://10.10.43.40:34451/reporting/update": dial tcp 10.10.43.40:34451: connect: connection refused';
-    
-    
-    
-        const logLines = [
-            `${timestamp} dc-ottosecure-app docker/ottofin-update-transaction-data-sch[1921817]: #033[0;32m[INFO]  #033[0m#033[0;34m2025/01/25 21:17:45 #033[0m[${uuid}][595][10][ConsumeRedis]Key: ${key}, Data: models.RedisBPRetry{KafkaTrxModel:models.KafkaTrxModel{InvoiceNo:"", OrderID:"", MerchantID:"", MerchantName:"", CustomerEmail:"", CustomerPhone:0, CustomerName:"", Amount:0, NettAmount:0, PaymentMethod:0, TrxType:0, ShippingDetail:"", IssuerRefNum:"", Link:"", Status:0, Notes:"", IsEmailSent:false, IsWASent:false, ExpiredAt:time.Date(1, time.January, 1, 0, 0, 0, 0, time.UTC), UpdatedAt:time.Date(1, time.January, 1, 0, 0, 0, 0, time.UTC), Type:0, Source:0, Transactiontime:time.Date(1, time.January, 1, 0, 0, 0, 0, time.UTC), CPAN:"", TerminalID:"", CreatedAt:time.Date(1, time.January, 1, 0, 0, 0, 0, time.UTC)}, HeaderType:"", ID:"", ErrorDesc:"${errorDesc}"}`,
-            `${timestamp} dc-ottosecure-app docker/ottofin-update-transaction-data-sch[1921817]: #033[0;32m[INFO]  #033[0m#033[0;34m2025/01/25 21:17:45 #033[0m[context.Background][Post]REQUEST:`,
-            `${timestamp} dc-ottosecure-app docker/ottofin-update-transaction-data-sch[1921817]: POST /reporting/update HTTP/1.1#015`,
-            `${timestamp} dc-ottosecure-app docker/ottofin-update-transaction-data-sch[1921817]: Host: 10.10.43.40:34451#015`,
-            `${timestamp} dc-ottosecure-app docker/ottofin-update-transaction-data-sch[1921817]: User-Agent: Go-http-client/1.1#015`,
-            `${timestamp} dc-ottosecure-app docker/ottofin-update-transaction-data-sch[1921817]: Content-Length: 731#015`,
-            `${timestamp} dc-ottosecure-app docker/ottofin-update-transaction-data-sch[1921817]: Authorization: #015`,
-            `${timestamp} dc-ottosecure-app docker/ottofin-update-transaction-data-sch[1921817]: Timestamp: ${faker.helpers.rangeToNumber({min: 1700000000000000000, max: 1800000000000000000})}#015`,
-            `${timestamp} dc-ottosecure-app docker/ottofin-update-transaction-data-sch[1921817]: Accept-Encoding: gzip#015`,
-            `${timestamp} dc-ottosecure-app docker/ottofin-update-transaction-data-sch[1921817]: #015`,
-            `${timestamp} dc-ottosecure-app docker/ottofin-update-transaction-data-sch[1921817]: {"data":"${data}"}`
-        ];
-    
-        return logLines.join('\n');
-    }
-    
-    
-    function generateLogs(numLogs) {
-        let logs = "";
-        for (let i = 0; i < numLogs; i++) {
-        const timestamp = new Date().toISOString();
-        logs += generateLogLine(timestamp) + "\n";
-        }
-        return logs;
-    }
-        
-    const numLogsToGenerate = 2; // atau berapapun jumlah log yang diinginkan
-    const logData = generateLogs(numLogsToGenerate);
-    
-        // tulis log ke file, atau kirim ke konsol
-        // console.log(logData);
-    fs.writeFileSync('multilineOtto.log', logData, 'utf-8');
-    
-    console.log(`Generated ${numLogsToGenerate} log entries and saved to wazuh_fake_logs.txt`);
-} catch (error) {
-    return `Error: ${error.message}`
-}
+    try {
+        function generateLogLine(timestamp) {
+            const uuid = faker.internet.ipv6();
+            const data = faker.git.commitSha(); // Generate random data
+            const key = `BP-REPORTING-RETRY-SP${faker.helpers.rangeToNumber({min: 1000000000000000000, max: 9999999999999999999})}~1`;
+            const errorDesc = 'Post "http://10.10.43.40:34451/reporting/update": dial tcp 10.10.43.40:34451: connect: connection refused';
 
+            const logLines = [
+                `${timestamp} dc-ottosecure-app docker/ottofin-update-transaction-data-sch[1921817]: #033[0;32m[INFO]  #033[0m#033[0;34m2025/01/25 21:17:45 #033[0m[context.Background][Post]REQUEST:`,
+                `${timestamp} dc-ottosecure-app docker/ottofin-update-transaction-data-sch[1921817]: POST /reporting/update HTTP/1.1#015`,
+                `${timestamp} dc-ottosecure-app docker/ottofin-update-transaction-data-sch[1921817]: Host: 10.10.43.40:34451#015`,
+                `${timestamp} dc-ottosecure-app docker/ottofin-update-transaction-data-sch[1921817]: User-Agent: Go-http-client/1.1#015`,
+                `${timestamp} dc-ottosecure-app docker/ottofin-update-transaction-data-sch[1921817]: Content-Length: 731#015`,
+                `${timestamp} dc-ottosecure-app docker/ottofin-update-transaction-data-sch[1921817]: Authorization: #015`,
+                `${timestamp} dc-ottosecure-app docker/ottofin-update-transaction-data-sch[1921817]: Timestamp: ${faker.helpers.rangeToNumber({min: 1700000000000000000, max: 1800000000000000000})}#015`,
+                `${timestamp} dc-ottosecure-app docker/ottofin-update-transaction-data-sch[1921817]: Accept-Encoding: gzip#015`,
+                `${timestamp} dc-ottosecure-app docker/ottofin-update-transaction-data-sch[1921817]: #015`,
+                `${timestamp} dc-ottosecure-app docker/ottofin-update-transaction-data-sch[1921817]: {"data":"${data}"}`
+            ];
+
+            return logLines;
+        }
+
+        const logFilePath = path.join(__dirname, 'multilineOtto.log');
+        const timestamp = new Date().toISOString();
+        const logLines = generateLogLine(timestamp);
+        logLines.forEach(line => {
+            fs.appendFile(logFilePath, line + '\n', (err) => {
+                if (err) {
+                    console.error('Error writing to log file:', err);
+                }
+            });
+        });
+
+        console.log(`Generated multiline log entry and saved to multilineOtto.log`);
+        return `Generated multiline log entry and saved to multilineOtto.log`;
+    } catch (error) {
+        return `Error: ${error.message}`;
+    }
 }
 
 module.exports = {
